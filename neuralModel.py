@@ -59,3 +59,6 @@ def run():
     sim = nengo.Simulator(model)
     sim.run(duration, progress_bar=False)
 
+    # SpiNNaker
+    # sim = nengo_spinnaker.Simulator(model)
+    # sim.run(duration)

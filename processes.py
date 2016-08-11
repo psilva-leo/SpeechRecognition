@@ -55,12 +55,15 @@ class FFTProcess(nengo.Process):
         f = open('out.bin', 'rb')
         data = f.readlines()
 
-        for i in range(np.shape(data)[0]):
-            if i == self.currentLine and self.readLine is True:
-                audio = map(int, data[i].split())
-                self.readLine = False
-                self.current = 0
-                break
+        if (np.shape(data)[0] - 1) == self.currentLine and self.readLine is True:
+            try:
+                audio = map(int, data[-1].split())
+                print(np.shape(audio))
+            except ValueError:
+                print('Error loading audio. Try again.')
+
+            self.readLine = False
+            self.current = 0
 
         f.close()
         return audio
@@ -77,8 +80,10 @@ class FFTProcess(nengo.Process):
             if audio is not None:
                 self.sound = audio
                 print('Recognizing...')
+                print(len(self.sound))
 
             signal = self.sound[self.current:self.current+self.frame_size]
+
             if len(signal) < self.frame_size:
                 size = self.frame_size - len(signal)
                 zeros = np.zeros(size)

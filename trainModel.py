@@ -1,7 +1,7 @@
 import nengo
 import scipy.io.wavfile as wavfile
 import processes
-
+import nengo_spinnaker
 
 import os
 for folder in os.listdir("./audio_samples"):
@@ -36,5 +36,10 @@ for folder in os.listdir("./audio_samples"):
 
 
     # Run the model for a second
-    with nengo.Simulator(model) as sim:
-        sim.run(duration, progress_bar=True)
+    sim = nengo.Simulator(model)
+    sim.run(duration, progress_bar=True)
+
+    # SpiNNaker
+    # sim = nengo_spinnaker.Simulator(model)
+    # sim.run(duration)
+
