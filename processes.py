@@ -14,7 +14,7 @@ class FFTProcessTrain(nengo.Process):
 
     def make_step(self, shape_in, shape_out, dt, rng):
         def step(t):
-            frame_step = self.frame_size/4
+            frame_step = self.frame_size // 4
             signal = self.sound[self.current:self.current+self.frame_size]
             if len(signal) < self.frame_size:
                 size = self.frame_size - len(signal)
@@ -311,7 +311,8 @@ class ASRInputTrain(object):
         # Write in file
         if self.count == (166 * (self.sample + 1) + 38 * self.sample):
             self.sample += 1
-            f = open(self.file, 'ab')
+            #f = open(self.file, 'ab')
+            f = open(self.file, 'a')
             print('buffer:', len(self.buffer))
             for i in range(len(self.buffer)):
                 f.write('%f ' % self.buffer[i])
@@ -354,8 +355,8 @@ class ASRInputTrain(object):
 
         filterbank = []
         for m in range(number_of_filters + 1):
-            filter = np.zeros(size / 2)
-            for k in range(size / 2):
+            filter = np.zeros(size // 2)
+            for k in range(size // 2):
                 if k < index[m - 1]:
                     filter[k] = 0
                 elif index[m - 1] <= k <= index[m]:

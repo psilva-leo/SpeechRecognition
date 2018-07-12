@@ -8,7 +8,7 @@ def run():
     neurons_per_freq = 20  # You can increase this, but low numbers work pretty well
     Fs = 8000
     frame_size = int(Fs * 0.040)    # 40ms
-    freqs = frame_size / 2
+    freqs = frame_size // 2
     duration = 10000
 
     asr_input = processes.ASRInput()
@@ -23,13 +23,13 @@ def run():
             sample_rate=Fs, frame_size=frame_size)
 
         # Inner hair cell activity
-        model.ihc = nengo.Node(output=model.filterbank, size_out=int(freqs))
+        model.ihc = nengo.Node(output=model.filterbank, size_out=freqs)
 
         # Cochlear neurons projecting down auditory nerve
-        model.auditory = nengo.Ensemble(n_neurons=int(freqs * neurons_per_freq), dimensions=int(freqs))
+        model.auditory = nengo.Ensemble(n_neurons=freqs * neurons_per_freq, dimensions=freqs)
         nengo.Connection(model.ihc, model.auditory)
 
-        model.command = nengo.Node(asr_input.step, size_in=int(freqs), size_out=1)
+        model.command = nengo.Node(asr_input.step, size_in=freqs, size_out=1)
         nengo.Connection(model.auditory, model.command)
 
 

@@ -14,7 +14,7 @@ for folder in os.listdir("./audio_samples"):
     neurons_per_freq = 20  # You can tweak this, but low numbers work pretty well
     frame_size = int(Fs * 0.040)    # 40ms
     frame_step = int(Fs * 0.010)    # 10ms
-    freqs = frame_size / 2
+    freqs = frame_size // 2
     duration = len(y)/(frame_step * 1000.)
 
     asr_input = processes.ASRInputTrain(folder+'.bin')
