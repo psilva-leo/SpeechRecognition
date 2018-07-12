@@ -8,7 +8,7 @@ def run():
     neurons_per_freq = 20  # You can increase this, but low numbers work pretty well
     Fs = 8000
     frame_size = int(Fs * 0.040)    # 40ms
-    freqs = frame_size / 2
+    freqs = frame_size // 2
     duration = 10000
 
     asr_input = processes.ASRInput()
