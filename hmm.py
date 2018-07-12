@@ -22,8 +22,11 @@ class HMM(object):
 
                 stack = []
                 for i in range(np.shape(data)[0]):
-                    data2 = map(float, data[i].split())
+                    #data2 = list(data[i].split())
+                    #data2 = map(float, data[i].split())
+                    data2 = list(map(float, data[i].split()))
                     data2 = np.reshape(data2, (1, -1))
+                    #data2 = list(np.reshape(data2, (1, -1)))
                     if i == 0:
                         stack = data2
                     else:

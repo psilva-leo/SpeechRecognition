@@ -1,5 +1,5 @@
 import sys
-import thread
+import _thread as thread
 from PyQt4 import QtGui
 from PyQt4.QtCore import QThread
 import pyaudio
@@ -110,7 +110,7 @@ class MainWindow(QtGui.QMainWindow):
         self.specItem = pg.ImageItem()
         specWid.addItem(self.specItem)
 
-        self.img_array = np.zeros((100, CHUNK / 2))
+        self.img_array = np.zeros((100, CHUNK // 2))
 
         # bipolar colormap
         pos = np.array([0., 1., 0.5, 0.25, 0.75])
@@ -175,7 +175,8 @@ class MainWindow(QtGui.QMainWindow):
                     frames = []
 
                     # Write in file
-                    f = open('out.bin', 'ab')
+                    #f = open('out.bin', 'ab')
+                    f = open('out.bin', 'a')
 
                     for i in range(len(sound)):
                         f.write('%d ' % sound[i])
