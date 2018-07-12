@@ -58,7 +58,7 @@ class FFTProcess(nengo.Process):
 
         if (np.shape(data)[0] - 1) == self.currentLine and self.readLine is True:
             try:
-                audio = map(int, data[-1].split())
+                audio = list(map(int, data[-1].split()))
                 print(np.shape(audio))
             except ValueError:
                 print('Error loading audio. Try again.')
