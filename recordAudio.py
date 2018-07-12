@@ -40,6 +40,7 @@ def mainLoop():
 
     ### Main window
     mainWindow = myMainWindow()
+    mainWindow.show()
     mainWindow.setWindowTitle("Spectrum Analyzer")  # Title
     mainWindow.resize(1300, 500)  # Size
     ### Campus
@@ -86,7 +87,7 @@ def mainLoop():
     specItem = pg.ImageItem()
     specWid.addItem(specItem)
 
-    img_array = np.zeros((100, CHUNK / 2))
+    img_array = np.zeros((100, CHUNK // 2))
 
     # bipolar colormap
     pos = np.array([0., 1., 0.5, 0.25, 0.75])
@@ -153,4 +154,7 @@ def mainLoop():
 
 
 if __name__ == '__main__':
+    app = QtGui.QApplication(sys.argv)
     mainLoop()
+    sys.exit(app.exec_())
+
