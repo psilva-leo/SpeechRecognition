@@ -1,5 +1,5 @@
 import sys
-from PyQt4 import QtGui
+from PyQt4 import QtGui, uic
 import pyaudio
 import pyqtgraph as pg
 from scipy import arange
@@ -21,11 +21,15 @@ fftSpec = []
 
 
 class myMainWindow(QtGui.QMainWindow):
+
+    def __init__(self):
+        self.app = QtGui.QApplication(sys.argv)
+        QtGui.QMainWindow.__init__(self)
+
     def closeEvent(self, event):
         global terminated
         terminated = True
         event.accept()
-
 
 def mainLoop():
     global terminated, fftSpec
@@ -37,6 +41,7 @@ def mainLoop():
                         frames_per_buffer=CHUNK)
 
     ### Application Creation
+
 
     ### Main window
     mainWindow = myMainWindow()
@@ -145,16 +150,19 @@ def mainLoop():
     audio.terminate()
     file.close()
 
+    print('Writing wav data')
     waveFile = wave.open('recorded.wav', 'wb')
     waveFile.setnchannels(CHANNELS)
     waveFile.setsampwidth(audio.get_sample_size(FORMAT))
     waveFile.setframerate(FS)
     waveFile.writeframes(b''.join(frames))
     waveFile.close()
+    print('Finished writing wav data')
+
+    print('Exiting...')
+    sys.exit()
 
 
 if __name__ == '__main__':
-    app = QtGui.QApplication(sys.argv)
     mainLoop()
-    sys.exit(app.exec_())
 
